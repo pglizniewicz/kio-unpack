@@ -1,0 +1,34 @@
+{
+    "KDE-KIO-Protocols": {
+        "unpack": {
+            "Class": ":local",
+            "Icon": "package-x-generic",
+            "archiveMimetype": [
+                "application/vnd.efi.iso"
+            ],
+            "config": "unpack",
+            "deleting": false,
+            "determineMimetypeFromExtension": true,
+            "input": "filesystem",
+            "linking": false,
+            "listing": [
+                "Name",
+                "Type",
+                "Size",
+                "Date",
+                "Access",
+                "Owner",
+                "Group",
+                "Link",
+                "MimeType"
+            ],
+            "makedir": false,
+            "moving": false,
+            "output": "filesystem",
+            "protocol": "unpack",
+            "reading": true,
+            "source": true,
+            "writing": false
+        }
+    }
+}

@@ -103,6 +103,10 @@ the Flatpak as well; the sandboxed app keeps its own config in
 `~/.var/app/org.kde.dolphin/config/dolphinrc`. The context-menu action and typed
 `unpack:` URLs work without it.
 
+Only images on the local file system can be opened, and inside the sandbox
+only those in paths granted to Dolphin. An image on a remote location such as
+`sftp:` or `smb:` has to be copied to a local folder first.
+
 The lint (step 1) has not been run yet. Besides the source-pinning errors it
 may report issues that only matter for Flathub submission (such as the local
 `dir` source); those do not block the dev build.

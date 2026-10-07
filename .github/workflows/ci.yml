@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# SPDX-FileCopyrightText: 2026 kio-unpack contributors
+#
+# M0a: one job that builds with warnings as errors and runs ctest in a
+# fedora:44 container (ADR 0014). The packages come from
+# scripts/toolbox-setup.sh, so CI, the toolbx container and docs/building.md
+# share one list. M0c adds the lint, sanitizer, clazy, fuzz and coverage jobs.
+
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: GCC build and tests
+    runs-on: ubuntu-latest
+    container: fedora:44
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          dnf install -y --setopt=install_weak_deps=False $(bash scripts/toolbox-setup.sh --ci --print-packages)
+
+      - name: Record package versions
+        if: always()
+        run: |
+          rpm -qa --qf '%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}\n' | sort > rpm-versions.txt
+
+      - name: Upload package versions
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpm-versions-build-and-test
+          path: rpm-versions.txt
+
+      # The three commands of the block "[M0a] Configure, build, test" in AGENTS.md.
+      - name: Configure
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test
+        run: ctest --test-dir build --output-on-failure

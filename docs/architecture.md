@@ -73,6 +73,11 @@ C2D, CIF, DAA, ISZ, ECM, CSO, CHD) are outside 1.0 too (ADR 0004).
    applies its archive rewrite to them. A nested archive is browsable only
    because the worker itself lists it as a directory (section 7).
 
+Only images and archives on the local file system can be opened: the path of
+an `unpack:` URL is an absolute local path (ADR 0005). An image on a remote
+location such as `sftp:` or `smb:` has to be copied to a local folder first
+(REQ-005).
+
 ## 3. Components
 
 ```

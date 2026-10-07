@@ -32,7 +32,7 @@ that list (ADR 0014).
 | Backends | libarchive | `libarchive-devel` |
 | Backends | zlib, liblzma, libbz2, libzstd | `zlib-ng-compat-devel`, `xz-devel`, `bzip2-devel`, `libzstd-devel` |
 | Backends (M2) | Meson, to build the pinned libudfread with `scripts/build-deps.sh` (ADR 0003) | `meson` |
-| Dev loop, smoke tests | `kioclient` | `kde-cli-tools` |
+| Dev loop, smoke tests | `kioclient`; `cmp` and `diff` (the smoke test compares output with its sources) | `kde-cli-tools`, `diffutils` |
 | Dev loop (GUI) | Dolphin, Qt Wayland platform plugin, an icon theme (a desktop installation already has the last two), kio-extras (thumbnailers and the archive worker), thumbnailers for PDF and other documents (spike S-6), `kwriteconfig6` (KConfig's command-line tool; the dev loop uses it to write `dolphinrc`) | `dolphin`, `qt6-qtwayland`, `breeze-icon-theme`, `kio-extras`, `kdegraphics-thumbnailers`, `kf6-kconfig` (also pulled in by `kf6-kconfig-devel`) |
 | Test fixtures | xorriso, genisoimage, squashfs-tools, udftools, dosfstools, mtools, zip, 7-Zip (`7z`, REQ-057), unzip, hfsplus-tools (`mkfs.hfsplus`) | same names; 7-Zip is `7zip` |
 | QA | gdb, Clang with compiler-rt (libFuzzer), ASan and UBSan runtimes | `gdb`, `clang`, `compiler-rt`, `libasan`, `libubsan` |

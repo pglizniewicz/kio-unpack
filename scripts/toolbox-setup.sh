@@ -60,9 +60,11 @@ PKGS_BACKENDS=(
     libzstd-devel
 )
 
-# Dev loop and smoke tests: kioclient.
+# Dev loop and smoke tests: kioclient; cmp and diff for the smoke test,
+# which a minimal fedora container (CI) lacks.
 PKGS_DEVLOOP=(
     kde-cli-tools
+    diffutils
 )
 
 # Graphical dev loop: Dolphin runs inside this container, on the host's

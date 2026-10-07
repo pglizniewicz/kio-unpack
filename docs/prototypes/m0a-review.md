@@ -121,7 +121,10 @@ three commands of the workflow.
 On GitHub, the first push ran the workflow (run `37687331866`, commit
 `f26604b`): all 9 tests passed. GitHub annotated that `actions/checkout@v4`
 and `actions/upload-artifact@v4` target the deprecated Node.js 20 and run on
-Node.js 24; this does not fail the job.
+Node.js 24; this does not fail the job. Both actions were then moved to v7,
+whose `action.yml` declares `using: node24` (`actions/checkout` `v7.0.1`,
+`3d3c42e5`; `actions/upload-artifact` `v7.0.2`, `cf430e03`); the v7 release
+notes list no change that affects this workflow.
 
 ## Dolphin checklist
 

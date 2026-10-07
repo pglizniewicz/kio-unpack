@@ -199,9 +199,11 @@ and never replace a failing test.
   `kioclient` needs no session bus for this: on 2026-10-07, in the toolbx
   container, `kioclient --platform offscreen ls trash:/` (an out-of-process
   worker) succeeded with `DBUS_SESSION_BUS_ADDRESS`, `DISPLAY`,
-  `WAYLAND_DISPLAY` and `XDG_RUNTIME_DIR` unset. Not yet run in the CI
-  container; if it fails there, the smoke tests run under `dbus-run-session`
-  and its package joins `docs/building.md` and `scripts/toolbox-setup.sh`.
+  `WAYLAND_DISPLAY` and `XDG_RUNTIME_DIR` unset. The same holds in the CI
+  container: a replay of the workflow in a fresh `fedora:44` container, as
+  root and without a session bus, passed every test including the smoke test
+  (`docs/prototypes/m0a-review.md`, section "CI"), so `dbus-run-session` is
+  not needed.
 - Checklist, in the Dolphin of step 4 with its own `build/dev-config`
   profile: clicking `rr.iso` opens it as a folder; Rock Ridge names,
   permissions and symlinks are shown; copying a file out yields a

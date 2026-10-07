@@ -13,22 +13,29 @@ Prior-art citations use `repo/path:line` in the upstream sources read on
 `9128b80e`, libudfread `b0bc695`, libmirage 3.3.3 (reference for ADR 0004)).
 7-Zip 26.04 and bit7z 4.1.0 were evaluated and rejected (ADR 0002).
 
-> **Current stage: M0a** (`docs/roadmap.md`). This document describes v1 as a
-> whole; implement only what the current stage needs.
+> **Current stage: M0b** (`docs/roadmap.md`; M0a closed on 2026-10-07,
+> `docs/prototypes/m0a-review.md`). This document describes v1 as a whole;
+> implement only what the current stage needs. Spikes S-1, S-3, S-4 and S-6
+> come first (`docs/roadmap.md`, "Spikes before dependent work").
 >
 > - **Binding now:** the three contracts at the start of section 4, and
->   section 10 for the errors M0a can already hit and for the UDS rows of the
->   image root, directories, files, symlinks and owners.
-> - **Read for M0a:** sections 1 to 3; 4.1 (`FileByteSource`); 4.2; 4.3 with
->   one volume per image; 4.4, the libarchive paragraph; 4.5, the `Sniff`
->   paragraph, for ISO 9660 only; 5; 6 with its M0a list; the first bullet of
->   9 (`kdemain`, no event loop); 11; 13, the rows core unit, resolver unit,
->   worker integration and smoke, with ISO 9660 fixtures from xorriso.
-> - **Intent, not to be implemented in M0a:** the registry in 4.5
->   (`BackendRegistry::open`); the other engines in 4.4; sections 7 and 8;
->   the rest of 9 (`SessionCache`, idle drop, `maxInstances`); section 12
->   (`guard()`, limits, watchdog, name decoding, fuzzing), which comes in M0b
->   and M0c.
+>   section 10 for every error and UDS row that does not belong to a later
+>   milestone (nested archives, `[Volumes]`, volume roots and temporary files
+>   come in M2).
+> - **Read for M0b:** sections 1 to 3; 4.1 (`FileByteSource`,
+>   `CachedByteSource`); 4.2; 4.3 with one volume per image; 4.4, the
+>   libarchive paragraph, now for every format libarchive reads; 4.5, the
+>   `Sniff` paragraph, for ISO 9660 and the magic of the libarchive formats;
+>   5; 6 with its M0a and M0b lists; 9 and the M0b rows of 9.1
+>   (`SessionCache`, idle drop, `maxInstances` as spike S-1 decides); 10; 11;
+>   12, the bullets "Exception firewall", "Cancellation" and "Untrusted
+>   names" with the table of legacy charsets; 13, the rows core unit,
+>   resolver unit, worker integration and smoke.
+> - **Intent, not to be implemented in M0b:** the registry in 4.5
+>   (`BackendRegistry::open`); the other engines in 4.4; sections 7 and 8
+>   (spike S-4 only prototypes `[Volumes]`); from section 12 the resource
+>   limits, the watchdog, the entry and arena caps and fuzzing, which come in
+>   M0c.
 >
 > Closing a stage updates this box; nothing is moved out of the document.
 

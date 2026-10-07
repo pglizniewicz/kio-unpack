@@ -134,8 +134,12 @@ Run by the maintainer on 2026-10-07 with the "[M0a] Dev loop" commands of
 | Check | Result |
 |---|---|
 | A double-click on `rr.iso` opens it as a folder | pass |
-| Rock Ridge names, permissions and the symlink are shown | pass (no problem reported) |
+| Rock Ridge names, permissions and the symlink are shown | pass |
 | A file copied out is byte-identical | pass: `big.bin` copied by dragging from the left to the right panel, and by Ctrl+C and Ctrl+V, into `build/tests/fixtures`; `cmp` with `rr-src/big.bin` reports no difference |
+
+The commit that closed M0a (`be60b0d`) recorded the first two checks as
+passed before the maintainer had confirmed them explicitly; the maintainer
+confirmed both afterwards, on the same day.
 
 Note: the first drag of `big.bin` produced a link file
 `unpack:⁄⁄⁄…⁄rr.iso⁄big.bin.desktop` (`Type=Link`) instead of a copy. KIO

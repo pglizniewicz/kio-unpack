@@ -64,6 +64,10 @@ weigh more here than in a typical KDE application.
    it brings, `ecm_set_disabled_deprecation_versions(QT <min> KF <min>)` with
    the minimum versions from `find_package`, and
    `CMAKE_EXPORT_COMPILE_COMMANDS ON` for clang-tidy, clazy and editors.
+   `KDECompilerSettings` turns exceptions off by default
+   (`kde-modules/KDECompilerSettings.cmake:472-489`); the core reports
+   failures by throwing (`docs/architecture.md`, section 4), so the top-level
+   `CMakeLists.txt` calls `kde_enable_exceptions()`.
 3. **`-Werror`:** the CMake option `KIO_UNPACK_WERROR`, default `ON`, makes
    warnings errors in the native, sanitizer, fuzz and clazy builds and in CI.
    The Flatpak manifest sets it `OFF`, because the compiler in `org.kde.Sdk`

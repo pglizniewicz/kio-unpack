@@ -25,8 +25,9 @@ the development machine (`/usr/lib64/cmake/KF6I18n/KF6I18nMacros.cmake:80-169`),
   KDE Invent later stays possible; no GitHub-only feature may be required for
   building.
 - All user-visible strings in the worker, the helper `kio-unpack-action` and the
-  core go through **KI18n** with the domain **`kio6_unpack`**; the core uses
-  `ki18n` through a thin wrapper so it stays free of widget dependencies.
+  core go through **KI18n** with the domain **`kio6_unpack`**. The core calls
+  `i18n()` directly: KI18n links only Qt Core, so the core stays free of
+  widget and KIO dependencies (`KF6::I18n` in the M0a build).
 - Catalogues live in the repository: `po/kio6_unpack.pot` from
   `scripts/extract-messages.sh`, one `po/<lang>/kio6_unpack.po` per language,
   installed by `ki18n_install(po)`. Polish is maintained from M0.

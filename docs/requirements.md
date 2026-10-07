@@ -47,7 +47,9 @@ as a plugin in the `kf6/kio` namespace with `input` and `output` of type
 **REQ-003** (M0a, ubiquitous) The worker shall declare in `archiveMimetype` only
 canonical MIME type names, that is, names `n` for which
 `QMimeDatabase().mimeTypeForName(n).name() == n`.
-*Verified by:* unit over the embedded JSON.
+*Verified by:* integration over the embedded JSON:
+`KProtocolInfo::archiveMimetypes("unpack")`, which KIO reads from the
+metadata of the built plugin.
 
 **REQ-004** (M0a, ubiquitous) The worker shall not declare in `archiveMimetype`
 any MIME type declared by the kio-extras archive worker
@@ -56,7 +58,8 @@ any MIME type declared by the kio-extras archive worker
 `application/x-bzip-compressed-tar`, `application/x-webarchive`,
 `application/x-lzma-compressed-tar`, `application/x-xz-compressed-tar`,
 `application/x-zstd-compressed-tar`).
-*Verified by:* unit over the embedded JSON against this list.
+*Verified by:* integration over the embedded JSON against this list, as for
+REQ-003.
 
 **REQ-005** (M0a, ubiquitous) The project documentation shall state that
 Dolphin's setting "Browse compressed files as folders" (disabled by default)
@@ -780,8 +783,11 @@ the worker shall use those values.
 **REQ-087** (M0a, ubiquitous) The source tree shall contain no hardcoded `/usr`
 path in code or build files; installation paths shall come from CMake
 installation variables or configuration.
-*Verified by:* CI grep check excluding `docs/` and `flatpak/`; M1 Flatpak build
-with prefix `/app`.
+*Verified by:* `ctest` grep check over `src/`, `tests/`, `prototypes/`,
+`scripts/`, `.github/` and the top-level `CMakeLists.txt` (documentation and the
+upstream Flatpak files describe systems and are not checked; a `#!` line at
+the top of a script names an interpreter and is allowed); M1 Flatpak build with
+prefix `/app`.
 
 **REQ-088** (M1, ubiquitous) The worker and all its bundled dependencies shall
 build with flatpak-builder against org.kde.Sdk without network access in the

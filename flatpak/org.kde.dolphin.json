@@ -1,0 +1,594 @@
+{
+    "id": "org.kde.dolphin",
+    "branch": "kio-unpack-dev",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "6.10",
+    "sdk": "org.kde.Sdk",
+    "command": "dolphin",
+    "finish-args": [
+        "--device=dri",
+        "--filesystem=/media",
+        "--filesystem=/run/media",
+        "--filesystem=home",
+        "--filesystem=~/.var/app",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=pulseaudio",
+        "--socket=wayland",
+        "--system-talk-name=org.freedesktop.UDisks2",
+        "--talk-name=org.freedesktop.Flatpak",
+        "--talk-name=org.kde.JobViewServer",
+        "--talk-name=org.kde.kded5",
+        "--talk-name=org.kde.kded6",
+        "--talk-name=org.kde.kiod5",
+        "--talk-name=org.kde.kiod6",
+        "--talk-name=org.kde.kpasswdserver",
+        "--talk-name=org.kde.kpasswdserver6",
+        "--talk-name=org.kde.kuiserver"
+    ],
+    "cleanup": [
+        "/docs",
+        "/include",
+        "/lib/cmake",
+        "/lib/pkgconfig",
+        "/man",
+        "/mkspecs",
+        "/share/doc",
+        "/share/man",
+        "/share/qlogging-categories6",
+        "*.a",
+        "*.la"
+    ],
+    "build-options": {
+        "env": {
+            "PERL5LIB": "/app/lib/perl5:/app/lib/perl5/arch",
+            "PERL_MM_OPT": "INSTALL_BASE=/app"
+        }
+    },
+    "modules": [
+        {
+            "name": "kde-cli-tools",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/plasma/6.7.2/kde-cli-tools-6.7.2.tar.xz",
+                    "sha256": "f76a520bb2f89a69cf1785885dd58185ff952f484893430928895af277ccc37b",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8761,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/plasma/$version/kde-cli-tools-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "lmdb",
+            "no-autogen": true,
+            "make-install-args": [
+                "prefix=/app"
+            ],
+            "subdir": "libraries/liblmdb",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_1.0.0/openldap-LMDB_1.0.0.tar.bz2",
+                    "sha256": "9ab73cda2ca2132d10256a63b655981af4860f6dc8315a933175ff9b598ffab2",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 6974,
+                        "stable-only": true,
+                        "url-template": "https://git.openldap.org/openldap/openldap/-/archive/LMDB_$version/openldap-LMDB_$version.tar.bz2"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "baloo",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/frameworks/6.27/baloo-6.27.0.tar.xz",
+                    "sha256": "6b226118bde28e81217f8cd6129f6e24c5d422bd7a322fe682e592b028b72db7",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8762,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/frameworks/$major.$minor/baloo-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "baloo-widgets",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/baloo-widgets-26.04.3.tar.xz",
+                    "sha256": "fa5288d216d3ed9ed0926385dbc0b266b60317a60c231a6dccaff4bcd810d9fc",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/baloo-widgets-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "icoutils",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://savannah.nongnu.org/download/icoutils/icoutils-0.32.3.tar.bz2",
+                    "sha256": "17abe02d043a253b68b47e3af69c9fc755b895db68fdc8811786125df564c6e0",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1360,
+                        "stable-only": true,
+                        "url-template": "http://savannah.nongnu.org/download/icoutils/icoutils-$version.tar.bz2"
+                    }
+                },
+                {
+                    "type": "patch",
+                    "path": "icoutils-gcc15.patch"
+                }
+            ]
+        },
+        {
+            "name": "konsole",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/konsole-26.04.3.tar.xz",
+                    "sha256": "fe54d0297c24a52b2ec8ebf45bf75b22736f65301663846b8f3539044943e1ac",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/konsole-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ffmpegthumbs",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DBUILD_WITH_QT6=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/ffmpegthumbs-26.04.3.tar.xz",
+                    "sha256": "a6d7a12a57f24113789203413d40a4355ce4c0aff516384ecd2c548ce42f389b",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/ffmpegthumbs-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ghostscript",
+            "buildsystem": "autotools",
+            "no-autogen": true,
+            "config-opts": [
+                "--disable-cups",
+                "--disable-gtk",
+                "--without-x",
+                "--disable-dbus",
+                "--disable-compile-inits",
+                "--with-system-zlib",
+                "--with-system-libpng",
+                "--with-system-libjpeg",
+                "--with-system-openjpeg",
+                "--with-system-freetype",
+                "--with-system-fontconfig"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10060/ghostscript-10.06.0.tar.xz",
+                    "sha256": "64352648c2c081c8a9fb1a12dc1965e01ead7c57f58b72d1b54f6ef1cef3c561",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1157,
+                        "stable-only": true,
+                        "url-template": "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs${major}0$minor$patch/ghostscript-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "kdegraphics-thumbnailers",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF",
+                "-DDISABLE_MOBIPOCKET=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/kdegraphics-thumbnailers-26.04.3.tar.xz",
+                    "sha256": "bd44c4c13e22dc69366e76d05b3d65629d07507a38e5ba42d60267756d73edcf",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/kdegraphics-thumbnailers-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "dolphin",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DFLATPAK=ON"
+            ],
+            "post-install": [
+                "mv /app/bin/{dolphin,dolphin-bin}",
+                "install run_dolphin.sh /app/bin/dolphin"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/dolphin-26.04.3.tar.xz",
+                    "sha256": "d18579587f841ca5a571c3614bda0beed6e53bf5ded4d456009e187cbb9d0b44",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/dolphin-$version.tar.xz"
+                    }
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "sed -e 's/org.kde.dolphin.FileManager1/org.freedesktop.FileManager1/g' -i CMakeLists.txt"
+                    ]
+                },
+                {
+                    "type": "file",
+                    "path": "run_dolphin.sh"
+                }
+            ]
+        },
+        {
+            "name": "dolphin-plugins",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/dolphin-plugins-26.04.3.tar.xz",
+                    "sha256": "35fe9e822c6a61608ea194ec9b949b49c44b2b3b77a877454847a305d7963252",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/dolphin-plugins-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "libmtp",
+            "config-opts": [
+                "--with-udev=/app/lib/udev"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://sourceforge.net/projects/libmtp/files/libmtp/1.1.23/libmtp-1.1.23.tar.gz",
+                    "sha256": "74a2b6e8cb4a0304e95b995496ea3ac644c29371649b892b856e22f12a0bdeed",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 10017,
+                        "stable-only": true,
+                        "url-template": "https://sourceforge.net/projects/libmtp/files/libmtp/$version/libmtp-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "libssh",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.libssh.org/files/0.12/libssh-0.12.0.tar.xz",
+                    "sha256": "1a6af424d8327e5eedef4e5fe7f5b924226dd617ac9f3de80f217d82a36a7121",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1729,
+                        "stable-only": true,
+                        "url-template": "https://www.libssh.org/files/$major.$minor/libssh-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "perl-modules",
+            "buildsystem": "simple",
+            "build-commands": [
+                "echo 'this is a workaround for a flatpak+perl limitation'",
+                "cd Parse-Yapp && perl Makefile.PL && make && make install",
+                "cd JSON && perl Makefile.PL && make && make install"
+            ],
+            "post-install": [
+                "chmod -R u+w /app/lib/perl5"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "dest": "Parse-Yapp",
+                    "url": "https://cpan.metacpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-1.21.tar.gz",
+                    "sha256": "3810e998308fba2e0f4f26043035032b027ce51ce5c8a52a8b8e340ca65f13e5",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 3197,
+                        "stable-only": true,
+                        "url-template": "https://cpan.metacpan.org/authors/id/W/WB/WBRASWELL/Parse-Yapp-$version.tar.gz"
+                    }
+                },
+                {
+                    "type": "archive",
+                    "dest": "JSON",
+                    "url": "https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/JSON-4.11.tar.gz",
+                    "sha256": "713bdbe724dbb915ed50265ffe47e079a511980cb2427aa19076788bb64c3182",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 12847,
+                        "stable-only": true,
+                        "url-template": "https://cpan.metacpan.org/authors/id/I/IS/ISHIGAKI/JSON-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "rpcgen",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/thkukuk/rpcsvc-proto/releases/download/v1.4.4/rpcsvc-proto-1.4.4.tar.xz",
+                    "sha256": "81c3aa27edb5d8a18ef027081ebb984234d5b5860c65bd99d4ac8f03145a558b",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 155452,
+                        "stable-only": true,
+                        "url-template": "https://github.com/thkukuk/rpcsvc-proto/releases/download/v$version/rpcsvc-proto-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "samba",
+            "config-opts": [
+                "--without-json",
+                "--without-ad-dc",
+                "--without-ldap",
+                "--without-ads",
+                "--without-pam"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://samba.org/samba/ftp/stable/samba-4.24.4.tar.gz",
+                    "sha256": "df2c51ab4361ec626ab9988e5946efcca8465bc7afae834291d5558468265ff8",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 4758,
+                        "stable-only": true,
+                        "url-template": "https://samba.org/samba/ftp/stable/samba-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "kdsoap",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DKDSoap_QT6=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/KDAB/KDSoap/releases/download/kdsoap-2.3.0/kdsoap-2.3.0.tar.gz",
+                    "sha256": "d2184951145cb768cc30376a10701be13869a164c1272d09f831ba2d195f02de",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 17735,
+                        "stable-only": true,
+                        "url-template": "https://github.com/KDAB/KDSoap/releases/download/kdsoap-$version/kdsoap-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "inih",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Ddefault_library=shared",
+                "-Ddistro_install=true",
+                "-Dwith_INIReader=true"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/benhoyt/inih/archive/refs/tags/r62.tar.gz",
+                    "sha256": "9c15fa751bb8093d042dae1b9f125eb45198c32c6704cd5481ccde460d4f8151",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 11600,
+                        "stable-only": true,
+                        "url-template": "https://github.com/benhoyt/inih/archive/refs/tags/r$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "exiv2",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DEXIV2_ENABLE_XMP=ON",
+                "-DEXIV2_ENABLE_EXTERNAL_XMP=OFF",
+                "-DEXIV2_ENABLE_PNG=ON",
+                "-DEXIV2_ENABLE_NLS=ON",
+                "-DEXIV2_ENABLE_PRINTUCS2=ON",
+                "-DEXIV2_ENABLE_LENSDATA=ON",
+                "-DEXIV2_ENABLE_VIDEO=OFF",
+                "-DEXIV2_ENABLE_WEBREADY=OFF",
+                "-DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF",
+                "-DEXIV2_ENABLE_CURL=OFF",
+                "-DEXIV2_ENABLE_SSH=OFF",
+                "-DEXIV2_BUILD_SAMPLES=OFF",
+                "-DEXIV2_BUILD_PO=OFF",
+                "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+                "-DEXIV2_BUILD_UNIT_TESTS=OFF",
+                "-DEXIV2_BUILD_DOC=OFF",
+                "-DEXIV2_TEAM_EXTRA_WARNINGS=OFF",
+                "-DEXIV2_TEAM_WARNINGS_AS_ERRORS=OFF",
+                "-DEXIV2_TEAM_USE_SANITIZERS=OFF",
+                "-DEXIV2_ENABLE_WIN_UNICODE=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/Exiv2/exiv2/archive/refs/tags/v0.28.8.tar.gz",
+                    "sha256": "ea51b0609f58a9afa063b60daa1539948b62247721e154f4fff0ad3aec9f9756",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 769,
+                        "stable-only": true,
+                        "url-template": "https://github.com/Exiv2/exiv2/archive/refs/tags/v$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "libkexiv2",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_WITH_QT6=ON"
+            ],
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/libkexiv2-26.04.3.tar.xz",
+                    "sha256": "dd5ddbf107dd9a51454ae83b0537ca80ce31e65da649c0a8db745e356d0d0064",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/libkexiv2-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "kdsoap-ws-discovery-client",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_WITH_QT6=ON"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/kdsoap-ws-discovery-client/kdsoap-ws-discovery-client-0.4.0.tar.xz",
+                    "sha256": "2cd247c013e75f410659bac372aff93d22d71c5a54c059e137b9444af8b3427a"
+                }
+            ]
+        },
+        {
+            "name": "kio-extras",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/kio-extras-26.04.3.tar.xz",
+                    "sha256": "8448075fdedd1e5ae43b865337f5ac3ca39037726dd0deaa061797fa84d31d63",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/kio-extras-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "ark",
+            "cleanup": [
+                "/share/icons",
+                "/share/doc",
+                "/share/man",
+                "/share/config.kcfg",
+                "/share/kxmlgui5"
+            ],
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/26.04.3/src/ark-26.04.3.tar.xz",
+                    "sha256": "8018fec69668aac35e5ab7ce4e51ce04de6ab7f56a3996322b016f41c31d5a01",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/ark-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "kio-unpack",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DBUILD_TESTING=OFF",
+                "-DKIO_UNPACK_WERROR=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "..",
+                    "skip": [
+                        "build",
+                        "build-asan",
+                        "build-fuzz",
+                        "build-clazy",
+                        "build-coverage",
+                        "build-stress",
+                        ".clang-format",
+                        ".flatpak-builder",
+                        "flatpak/build",
+                        "flatpak/repo",
+                        ".cache",
+                        ".git"
+                    ]
+                }
+            ]
+        }
+    ]
+}
